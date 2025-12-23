@@ -52,13 +52,16 @@ app = FastAPI(
 )
 
 # CORS Configuration
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "https://resume-analyser-gbp1.vercel.app",  # frontend URL
+    "http://localhost:5173",  # local frontend (vite)
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "https://resume-analyser-pdji.vercel.app",  # 👈 Vercel frontend
-    ],
+    allow_origins=origins,  # list of allowed origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
