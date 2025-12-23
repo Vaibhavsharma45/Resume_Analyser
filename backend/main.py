@@ -5,7 +5,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 from backend.analyzer import ResumeAnalyzer
-from models import AnalysisResponse
+from backend.models import AnalysisResponse
 from job_fetcher import JobDescriptionGenerator
 from typing import Optional
 from contextlib import asynccontextmanager
