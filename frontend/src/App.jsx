@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Upload, FileText, Target, TrendingUp, AlertCircle, CheckCircle2, XCircle, Sparkles } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+fetch(`${API_BASE}/analyze`)
 
 function App() {
   const [file, setFile] = useState(null);
