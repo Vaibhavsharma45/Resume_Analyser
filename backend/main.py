@@ -4,7 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from analyzer import ResumeAnalyzer
+from backend.analyzer import ResumeAnalyzer
 from models import AnalysisResponse
 from job_fetcher import JobDescriptionGenerator
 from typing import Optional
