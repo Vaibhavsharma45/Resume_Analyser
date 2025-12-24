@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 from backend.analyzer import ResumeAnalyzer  # ✅ Fixed - No 'backend.' prefix
 from backend.models import AnalysisResponse  # ✅ Fixed
-from job_fetcher import JobDescriptionGenerator  # ✅ Fixed
+from backend.job_fetcher import JobDescriptionGenerator  # ✅ Fixed
 from typing import Optional
 from contextlib import asynccontextmanager
 
