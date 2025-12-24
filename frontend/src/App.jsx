@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Upload, FileText, Target, TrendingUp, AlertCircle, CheckCircle2, XCircle, Sparkles } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
-fetch(`${API_BASE}/analyze`)
+// ✅ FIXED: Correct variable name and fallback
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -42,7 +42,8 @@ function App() {
       setJobDescription(response.data.job_description);
       setError('');
     } catch (err) {
-      setError('Failed to generate job description. Please try again.');
+      console.error('Generate JD Error:', err);
+      setError(err.response?.data?.detail || 'Failed to generate job description. Please try again.');
     } finally {
       setGeneratingJD(false);
     }
@@ -74,6 +75,7 @@ function App() {
       });
       setResult(response.data);
     } catch (err) {
+      console.error('Analyze Error:', err);
       setError(err.response?.data?.detail || 'Analysis failed. Please try again.');
     } finally {
       setLoading(false);
@@ -241,14 +243,20 @@ function App() {
                       cx="96"
                       cy="96"
                       r="88"
-                      stroke="currentColor"
+                      stroke="url(#gradient)"
                       strokeWidth="12"
                       fill="none"
                       strokeDasharray={`${2 * Math.PI * 88}`}
                       strokeDashoffset={`${2 * Math.PI * 88 * (1 - result.match_score / 100)}`}
-                      className={`bg-gradient-to-r ${getScoreGradient(result.match_score)} transition-all duration-1000`}
+                      className="transition-all duration-1000"
                       strokeLinecap="round"
                     />
+                    <defs>
+                      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" className={getScoreGradient(result.match_score).split(' ')[0].replace('from-', '')} />
+                        <stop offset="100%" className={getScoreGradient(result.match_score).split(' ')[1].replace('to-', '')} />
+                      </linearGradient>
+                    </defs>
                   </svg>
                   <div className="absolute">
                     <p className={`text-6xl font-bold ${getScoreColor(result.match_score)}`}>

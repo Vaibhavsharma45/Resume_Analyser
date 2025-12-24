@@ -4,9 +4,9 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from backend.analyzer import ResumeAnalyzer
-from backend.models import AnalysisResponse
-from backend.job_fetcher import JobDescriptionGenerator
+from analyzer import ResumeAnalyzer  # ✅ Fixed - No 'backend.' prefix
+from models import AnalysisResponse  # ✅ Fixed
+from job_fetcher import JobDescriptionGenerator  # ✅ Fixed
 from typing import Optional
 from contextlib import asynccontextmanager
 
@@ -51,22 +51,20 @@ app = FastAPI(
     lifespan=app_lifespan
 )
 
-# CORS Configuration
-from fastapi.middleware.cors import CORSMiddleware
-
+# CORS Configuration - ✅ Fixed: Removed duplicate import
 origins = [
-    "https://resume-analyser-gbp1.vercel.app",  # frontend URL
-    "http://localhost:5173",  # local frontend (vite)
+    "https://resume-analyser-gbp1.vercel.app",  # Your Vercel frontend
+    "http://localhost:5173",  # Local development
+    "http://localhost:3000",  # Alternative local
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # list of allowed origins
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/")
 async def root():
