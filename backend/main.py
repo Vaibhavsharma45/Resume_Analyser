@@ -4,8 +4,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from analyzer import ResumeAnalyzer  # ✅ Fixed - No 'backend.' prefix
-from models import AnalysisResponse  # ✅ Fixed
+from backend.analyzer import ResumeAnalyzer  # ✅ Fixed - No 'backend.' prefix
+from backend.models import AnalysisResponse  # ✅ Fixed
 from job_fetcher import JobDescriptionGenerator  # ✅ Fixed
 from typing import Optional
 from contextlib import asynccontextmanager
